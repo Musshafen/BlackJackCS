@@ -24,6 +24,19 @@ class Hand
     public List<Card> CurrentCards { get; set; } = new List<Card>();
 
 
+    public int TotalValue()
+    {
+        var total = 0;
+
+        foreach (var card in CurrentCards)
+        {
+            total = total + card.Value();
+        }
+        return total;
+
+    }
+
+
     public void AddCard(Card cardToAdd)
     {
         CurrentCards.Add(cardToAdd);
@@ -106,7 +119,17 @@ namespace BlackJackCS
                 dealer.AddCard(card);
 
             }
+            Console.WriteLine("Player, your cards are: ");
+            Console.WriteLine(String.Join(", ", player.CurrentCards));
+
+
+            Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
+
+
+
+
         }
     }
+}
 
 
