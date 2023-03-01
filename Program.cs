@@ -70,6 +70,19 @@ class Hand
 
     }
 
+    public void PrintCardsAndTotal(string handName)
+    {
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine($"{handName}, your cards are: ");
+        Console.WriteLine(String.Join(", ", CurrentCards));
+
+
+        Console.WriteLine($"The total value of your hand is: {TotalValue()}");
+        Console.WriteLine();
+        Console.WriteLine();
+    }
+
 }
 
 
@@ -80,9 +93,8 @@ namespace BlackJackCS
 {
     class Program
     {
-        static void Main(string[] args)
+        static void PlayTheGame()
         {
-
             var deck = new List<Card>();
 
 
@@ -152,15 +164,7 @@ namespace BlackJackCS
             while (player.TotalValue() < 21 && answer != "STAND")
             {
 
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Player, your cards are: ");
-                Console.WriteLine(String.Join(", ", player.CurrentCards));
-
-
-                Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
-                Console.WriteLine();
-                Console.WriteLine();
+                player.PrintCardsAndTotal("Player");
 
                 Console.Write("Do you want to HIT or STAND? ");
                 answer = Console.ReadLine().ToUpper();
@@ -173,16 +177,71 @@ namespace BlackJackCS
                     player.AddCard(newCard);
                 }
 
+            }
 
+            player.PrintCardsAndTotal("Player");
 
+            while (player.TotalValue() <= 21 && dealer.TotalValue() <= 17)
+            {
+                var newCard = deck[0];
+                deck.Remove(newCard);
+
+                dealer.AddCard(newCard);
 
 
             }
 
 
+            dealer.PrintCardsAndTotal("Dealer");
 
+            if (player.TotalValue() > 21)
+            {
+                Console.WriteLine("Dealer WINS!");
+            }
+            else
+
+            if (dealer.TotalValue() > 21)
+            {
+                Console.WriteLine("Player WINS!!");
+            }
+            else
+            if (dealer.TotalValue() > player.TotalValue())
+            {
+                Console.WriteLine("Dealer WINS!");
+            }
+            else
+            if (player.TotalValue() > dealer.TotalValue())
+            {
+                Console.WriteLine("Player WINS!!");
+            }
+            else
+            {
+                Console.WriteLine("Dealer WINS!");
+            }
+        }
+
+        static void Main(string[] args)
+        {
+
+            while (true)
+            {
+                PlayTheGame();
+
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Would you like to play again? ");
+                var answer = Console.ReadLine().ToUpper();
+
+                if (answer == "NO")
+                {
+                    break;
+                }
+
+            }
 
         }
+
+
     }
 }
 
