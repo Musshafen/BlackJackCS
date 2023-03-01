@@ -12,6 +12,33 @@ class Card
     public string Face { get; set; }
     public string Suit { get; set; }
 
+    public int Value()
+    {
+        switch (Face)
+        {
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case "10":
+                return int.Parse(Face);
+            case "Jack":
+            case "Queen":
+            case "King":
+                return 10;
+            case "Ace":
+                return 11;
+            default:
+                return 0;
+
+        }
+
+    }
+
     public override string ToString()
     {
         return $"The {Face} of {Suit}";
@@ -119,11 +146,38 @@ namespace BlackJackCS
                 dealer.AddCard(card);
 
             }
-            Console.WriteLine("Player, your cards are: ");
-            Console.WriteLine(String.Join(", ", player.CurrentCards));
+
+            var answer = "";
+
+            while (player.TotalValue() < 21 && answer != "STAND")
+            {
+
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Player, your cards are: ");
+                Console.WriteLine(String.Join(", ", player.CurrentCards));
 
 
-            Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
+                Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Console.Write("Do you want to HIT or STAND? ");
+                answer = Console.ReadLine().ToUpper();
+
+                if (answer == "HIT")
+                {
+                    var newCard = deck[0];
+                    deck.Remove(newCard);
+
+                    player.AddCard(newCard);
+                }
+
+
+
+
+
+            }
 
 
 
