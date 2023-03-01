@@ -87,21 +87,26 @@ namespace BlackJackCS
 
             var dealer = new Hand();
 
-            var firstPlayerCard = deck[0];
+            for (var numberOfCardsToDeal = 0; numberOfCardsToDeal < 2; numberOfCardsToDeal++)
+            {
+                var card = deck[0];
 
-            deck.Remove(firstPlayerCard);
+                deck.Remove(card);
 
-            player.AddCard(firstPlayerCard);
+                player.AddCard(card);
 
-            var secondPlayerCard = deck[0];
+            }
 
-            deck.Remove(secondPlayerCard);
+            for (var numberOfCardsToDeal = 0; numberOfCardsToDeal < 2; numberOfCardsToDeal++)
+            {
+                var card = deck[0];
 
-            Console.WriteLine(player.CurrentCards.Count);
+                deck.Remove(card);
 
+                dealer.AddCard(card);
 
-
-
+            }
         }
     }
-}
+
+
