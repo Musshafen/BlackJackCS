@@ -234,6 +234,7 @@ namespace BlackJackCS
 
                 if (answer == "NO")
                 {
+                    Console.WriteLine("Welp, see you later!");
                     break;
                 }
 
